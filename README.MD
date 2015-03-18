@@ -13,7 +13,7 @@ Highlight the f2j code in Vim editor.
     ```
     " f2j
 
-    au BufNewFile,BufRead *sf           setf f2j
+    au BufNewFile,BufRead .*sf           setf f2j
     ```
 
     For more details, type `:help filetype` in vim.

@@ -17,7 +17,7 @@ syn match VarId "\(\<\u[a-zA-Z0-9_']*\.\)\=\<\l[a-zA-Z0-9_']*\>"
 
 " Keywords
 syn keyword f2jBoolean          True False
-syn keyword f2jConditional		if then else
+syn keyword f2jConditional      if then else
 syn keyword f2jStatement        case of \| let and rec
 syn keyword f2jModule           module
 syn keyword f2jStructure        data
@@ -29,11 +29,11 @@ syn match   f2jVarSym           "\(\<\u[a-zA-Z0-9_']*\.\)\=[-!#$%&\*\+/<=>\?@\\^
 
 " Strings and Constants
 syn match   f2jInteger          "\<-\=\d\+\>"
-syn match   f2jReal	            "\<-\=\d\+\.\d*\([eE][-+]\=\d\+\)\=\>"
-syn match   f2jCharacter	    "'[^']'"
-syn match   f2jCharacter	    "'\\''"
-syn match   f2jCharacter	    "'[^\\]'"
-syn region  f2jString	    	start=+"+  skip=+\\\\\|\\"+  end=+"+
+syn match   f2jReal             "\<-\=\d\+\.\d*\([eE][-+]\=\d\+\)\=\>"
+syn match   f2jCharacter        "'[^']'"
+syn match   f2jCharacter        "'\\''"
+syn match   f2jCharacter        "'[^\\]'"
+syn region  f2jString           start=+"+  skip=+\\\\\|\\"+  end=+"+
 
 syn match   f2jDelimiter        "(\|)\|\[\|\]\|,\|;\|{\|}"
 
@@ -56,7 +56,7 @@ if version >= 508 || !exists("did_f2j_syntax_inits")
   HiLink f2jModule                 f2jStructure
   HiLink f2jVarSym                 f2jOperator
 
-  HiLink f2jConditional			   Conditional
+  HiLink f2jConditional            Conditional
   HiLink f2jStatement              Statement
   HiLink f2jInteger                Number
   HiLink f2jReal                   Float

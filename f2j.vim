@@ -15,6 +15,8 @@ endif
 syn match ConId "\(\<\u[a-zA-Z0-9_']*\.\)\=\<\u[a-zA-Z0-9_']*\>"
 syn match VarId "\(\<\u[a-zA-Z0-9_']*\.\)\=\<\l[a-zA-Z0-9_']*\>"
 
+syn cluster f2jNotTop contains=f2jTodo,f2jInterpolation,f2jNoInterpolation,f2jStringEscape
+
 " Keywords
 syn keyword f2jBoolean          True False
 syn keyword f2jConditional      if then else
@@ -33,12 +35,20 @@ syn match   f2jReal             "\<-\=\d\+\.\d*\([eE][-+]\=\d\+\)\=\>"
 syn match   f2jCharacter        "'[^']'"
 syn match   f2jCharacter        "'\\''"
 syn match   f2jCharacter        "'[^\\]'"
-syn region  f2jString           start=+"+  skip=+\\\\\|\\"+  end=+"+
+syn region  f2jString           matchgroup=f2jDelimiter start=+"+  skip=+\\\\\|\\"+  end=+"+ contains=f2jInterpolation, f2jNoInterpolation,f2jStringEscape
+
+" String Interpolation
+
+syn match   f2jStringEscape     "\\\\"                           contained
+syn region  f2jInterpolation    matchgroup=f2jDelimiter start="\\{" end="}" contained contains=ALLBUT,@f2jNotTop
+syn region  f2jNoInterpolation  start="\\\\{" end="}"            contained
+syn match   f2jNoInterpolation  "\\\\{"                          contained
 
 syn match   f2jDelimiter        "(\|)\|\[\|\]\|,\|;\|{\|}"
 
 " Comments
 syn region   f2jComment         start="--" end="$" contains=f2jTodo
+syn region   f2jBlockComment    start="{-" end="-}" contains=f2jBlockComment, f2jTodo
 syn keyword  f2jTodo            contained TODO FIXME XXX
 
 
@@ -55,6 +65,8 @@ if version >= 508 || !exists("did_f2j_syntax_inits")
 
   HiLink f2jModule                 f2jStructure
   HiLink f2jVarSym                 f2jOperator
+  HiLink f2jStringEscape           f2jString
+  HiLink f2jNoInterpolation        f2jString
 
   HiLink f2jConditional            Conditional
   HiLink f2jStatement              Statement
@@ -65,6 +77,7 @@ if version >= 508 || !exists("did_f2j_syntax_inits")
   HiLink f2jType                   Type
   HiLink f2jString                 String
   HiLink f2jComment                Comment
+  HiLink f2jBlockComment           Comment
   HiLink f2jTodo                   Todo
   HiLink f2jStructure              Structure
   HiLink f2jOperator               Operator
